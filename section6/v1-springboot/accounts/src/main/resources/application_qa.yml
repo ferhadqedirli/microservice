@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+build:
+  version: "2.0"
+accounts:
+  message: "Welcome to EazyBank accounts related QA APIs"
+  contactDetails:
+    name: "Farhad Gadirli - QA Leader"
+    email: "farhadgadirli@hotmail.com"
+  onCallSupport:
+    - (+994) 55 846 1440
+    - (+994) 50 971 1091

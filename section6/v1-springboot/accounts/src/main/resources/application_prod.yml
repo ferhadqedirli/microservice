@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+build:
+  version: "1.0"
+accounts:
+  message: "Welcome to EazyBank accounts related prod APIs"
+  contactDetails:
+    name: "Farhad Gadirli - Product Owner"
+    email: "farhadgadirli@hotmail.com"
+  onCallSupport:
+    - (+994) 55 846 1440
+    - (+994) 50 971 1091
