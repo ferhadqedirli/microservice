@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: "https://github.com/eazybytes/eazybytes-config.git"
-          default-label: main
+          uri: "https://github.com/ferhadqedirli/config-main.git"
+          default-label: master
           timeout: 5
           clone-on-start: true
           force-pull: true
@@ -21,6 +21,11 @@ spring:
     port: 5672
     username: "guest"
     password: "guest"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 encrypt:
   key: "45D81EC1EF61DF9AD8D3E5BB397F9"
 server:
