@@ -16,7 +16,12 @@ spring:
 #        native:
 #          search-locations: "file:///D://Microservices//microservice//section6//v2-spring-cloud-config//configserver//src//main//resources//config"
 #          search-locations: "classpath:/config"
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
 encrypt:
-  key: "F3F54C3DAD367D583297463B48ECD"
+  key: "45D81EC1EF61DF9AD8D3E5BB397F9"
 server:
   port: 8071
