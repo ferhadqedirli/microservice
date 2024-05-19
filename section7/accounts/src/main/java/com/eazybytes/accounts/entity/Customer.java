@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "CUSTOMERS")
+@Table(name = "customers")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Customer extends BaseEntity {
 
