@@ -114,7 +114,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>farhadgadirli/${project.artifactId}:s6</image>
+						<image>farhadgadirli/${project.artifactId}:s8</image>
 					</to>
 				</configuration>
 			</plugin>
