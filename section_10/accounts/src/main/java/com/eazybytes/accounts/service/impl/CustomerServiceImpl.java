@@ -1,6 +1,8 @@
 package com.eazybytes.accounts.service.impl;
 
+import com.eazybytes.accounts.dto.CardDto;
 import com.eazybytes.accounts.dto.CustomerDetailsDto;
+import com.eazybytes.accounts.dto.LoanDto;
 import com.eazybytes.accounts.exception.ResourceNotFoundException;
 import com.eazybytes.accounts.mapper.CustomerMapper;
 import com.eazybytes.accounts.repository.AccountRepository;
@@ -8,23 +10,29 @@ import com.eazybytes.accounts.repository.CustomerRepository;
 import com.eazybytes.accounts.service.CustomerService;
 import com.eazybytes.accounts.service.client.CardsFeignClient;
 import com.eazybytes.accounts.service.client.LoansFeignClient;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
-    private final CardsFeignClient cardsFeignClient;
-    private final LoansFeignClient loansFeignClient;
+    @Qualifier("cards") private final CardsFeignClient cardsFeignClient;
+    @Qualifier("loans") private final LoansFeignClient loansFeignClient;
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, AccountRepository accountRepository, CardsFeignClient cardsFeignClient, LoansFeignClient loansFeignClient) {
+        this.customerRepository = customerRepository;
+        this.accountRepository = accountRepository;
+        this.cardsFeignClient = cardsFeignClient;
+        this.loansFeignClient = loansFeignClient;
+    }
 
     /**
      * @param mobileNumber - Input Mobile Number
@@ -42,14 +50,23 @@ public class CustomerServiceImpl implements CustomerService {
                         () -> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString())
                 );
 
+        LoanDto loanDtoBody = null;
+        CardDto cardDtoBody = null;
+
         var loanDto = loansFeignClient.fetchLoanDetails(correlationId, mobileNumber);
+        if (loanDto != null) {
+            loanDtoBody = loanDto.getBody();
+        }
         var cardDto = cardsFeignClient.fetchCardDetails(correlationId, mobileNumber);
+        if (cardDto != null) {
+            cardDtoBody = cardDto.getBody();
+        }
 
         var customerDetailsDto = CustomerMapper.mapToCustomerDetailsDto(
                 customer,
                 account,
-                cardDto.getBody(),
-                loanDto.getBody()
+                cardDtoBody,
+                loanDtoBody
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(customerDetailsDto);

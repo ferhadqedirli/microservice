@@ -210,6 +210,7 @@ public class LoanController {
     )
     @GetMapping("/contact-info")
     public ResponseEntity<LoanContactInfoDto> getContactInfo() {
+        logger.debug("Invoked loans microservice API");
         return loanService.getContactInfo();
     }
 
