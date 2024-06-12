@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(String mobileNumber, String correlationId) {
-        logger.debug("eazyBank-correlation-id found: {} ", correlationId);
+        logger.debug("fetchCustomerDetails method start");
 
         var customer = customerRepository.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber));
@@ -69,6 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
                 loanDtoBody
         );
 
+        logger.debug("fetchCustomerDetails method end");
         return ResponseEntity.status(HttpStatus.OK).body(customerDetailsDto);
     }
 

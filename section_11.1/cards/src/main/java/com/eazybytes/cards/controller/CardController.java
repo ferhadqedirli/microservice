@@ -83,7 +83,8 @@ public class CardController {
                                                     @RequestParam
                                                     @Pattern(regexp = "^994\\d{9}$", message = "Mobile number must be 12 digits and starts with '994'")
                                                     String mobileNumber) {
-        logger.debug("eazyBank-correlation-id found: {} ", correlationId);
+        logger.debug("fetchCardDetails method start");
+        logger.debug("fetchCardDetails method end");
         return cardService.fetchCard(mobileNumber);
     }
 
